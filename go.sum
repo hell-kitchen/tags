@@ -89,6 +89,8 @@ github.com/heetch/confita v0.10.0 h1:00V4eQPDU71v9nZD7N/DsSb9cnPJh59CjrpQPfln47A
 github.com/heetch/confita v0.10.0/go.mod h1:W6GDCVPvi2LpvdEriwZTu2fyxuK+Grx1vY302gtWfvM=
 github.com/hell-kitchen/pkg/confita v0.0.0-20240213131251-31423461296e h1:SkrXyg6XLOJJqW7Cq3okjIrzevIPExqYBUy0YQLyar4=
 github.com/hell-kitchen/pkg/confita v0.0.0-20240213131251-31423461296e/go.mod h1:MU+Jo15LMJPmEmCSTPkfxBBzjpvtP2rc2wFop9pvmDI=
+github.com/hell-kitchen/pkg/logger v0.0.0-20240213131251-31423461296e h1:H9fA015SiH9KTmalVxzpGPHX6HEbL2XTbWy9TUnQK/g=
+github.com/hell-kitchen/pkg/logger v0.0.0-20240213131251-31423461296e/go.mod h1:ExoZNyAS8gi5Mep5ySTPRpImYVbPyFMdps+zZMKVF1E=
 github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af/go.mod h1:Nht3zPeWKUH0NzdCt2Blrr5ys8VGpn0CEB0cQHVjt7k=
 github.com/jonboulle/clockwork v0.1.0/go.mod h1:Ii8DK3G1RaLaWxj9trq07+26W01tbo22gdxWY5EU2bo=
 github.com/julienschmidt/httprouter v1.2.0/go.mod h1:SYymIcj16QtmaHHD7aYtjjsJG7VTCxuUUipMqKk8s4w=
@@ -147,7 +149,8 @@ github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
-github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
+github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
+github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926/go.mod h1:9ESjWnEqriFuLhtthL60Sar/7RFoluCcXsuvEwTV5KM=
 github.com/ugorji/go v1.1.4/go.mod h1:uQMGLiO92mf5W77hV/PUCpI3pbzQx3CRekS0kk+RGrc=
