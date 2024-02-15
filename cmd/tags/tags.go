@@ -4,6 +4,7 @@ import (
 	"github.com/hell-kitchen/pkg/logger"
 	"github.com/hell-kitchen/tags/internal/config"
 	"github.com/hell-kitchen/tags/internal/controller/grpc"
+	"github.com/hell-kitchen/tags/internal/service/production"
 	"go.uber.org/fx"
 )
 
@@ -17,6 +18,7 @@ func NewOptions() fx.Option {
 			logger.NewProduction,
 			config.New,
 			grpc.New,
+			production.New,
 		),
 		fx.Invoke(
 			startServer,

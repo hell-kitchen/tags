@@ -22,9 +22,10 @@ type Controller struct {
 	service  service.TagsService
 }
 
-func New(cfg *config.Config) (ctrl *Controller, err error) {
+func New(cfg *config.Config, service service.TagsService) (ctrl *Controller, err error) {
 	ctrl = &Controller{
-		cfg: cfg,
+		cfg:     cfg,
+		service: service,
 	}
 	multierr.AppendInto(&err, ctrl.createListener())
 	multierr.AppendInto(&err, ctrl.createServer())
