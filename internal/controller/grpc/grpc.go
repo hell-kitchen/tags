@@ -1,6 +1,7 @@
 package grpc
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"github.com/hell-kitchen/tags/internal/config"
@@ -9,6 +10,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"net"
+	"time"
 )
 
 type Controller struct {
@@ -57,5 +59,26 @@ func (ctrl *Controller) createServer() (err error) {
 
 	ctrl.server = grpc.NewServer(opts...)
 	pb.RegisterTagsServiceServer(ctrl.server, ctrl)
+	return nil
+}
+
+func (ctrl *Controller) Start(ctx context.Context) error {
+	var cancel context.CancelCauseFunc
+
+	ctx, cancel = context.WithCancelCause(ctx)
+
+	go func() {
+		err := ctrl.server.Serve(ctrl.listener)
+		if err != nil {
+			cancel(err)
+		}
+	}()
+
+	time.Sleep(100 * time.Millisecond)
+	return ctx.Err()
+}
+
+func (ctrl *Controller) Stop(_ context.Context) error {
+	ctrl.server.GracefulStop()
 	return nil
 }
