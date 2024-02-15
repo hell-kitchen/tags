@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/hell-kitchen/tags/internal/config"
+	"github.com/hell-kitchen/tags/internal/service"
 	pb "github.com/hell-kitchen/tags/pkg/api/proto"
 	"go.uber.org/multierr"
 	"google.golang.org/grpc"
@@ -18,6 +19,7 @@ type Controller struct {
 	server   *grpc.Server
 	cfg      *config.Config
 	listener net.Listener
+	service  service.TagsService
 }
 
 func New(cfg *config.Config) (ctrl *Controller, err error) {
