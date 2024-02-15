@@ -11,6 +11,9 @@ require (
 
 require (
 	github.com/golang/protobuf v1.5.3 // indirect
+	github.com/heetch/confita v0.10.0 // indirect
+	github.com/hell-kitchen/pkg/confita v0.0.0-20240213131251-31423461296e // indirect
+	github.com/pkg/errors v0.8.1 // indirect
 	go.uber.org/dig v1.17.0 // indirect
 	go.uber.org/multierr v1.10.0 // indirect
 	golang.org/x/net v0.18.0 // indirect
