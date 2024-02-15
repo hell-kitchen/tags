@@ -2,7 +2,7 @@ package grpc
 
 import (
 	"context"
-	pb "github.com/hell-kitchen/proto/pkg/proto/api/tags"
+	pb "github.com/hell-kitchen/tags/pkg/api/proto"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
