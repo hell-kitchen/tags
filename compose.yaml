@@ -1,8 +1,6 @@
 services:
   server:
-    build:
-      context: .
-      target: final
+    image: vladmarlo/tags_backend:latest
     ports:
       - 5000:5000
     environment:
@@ -23,11 +21,12 @@ services:
       - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=tags
+      - POSTGRES_PASSWORD=postgres
     healthcheck:
       test: [ "CMD", "pg_isready" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      interval: 1s
+      timeout: 1s
+      retries: 15
 volumes:
   db-data:
 
