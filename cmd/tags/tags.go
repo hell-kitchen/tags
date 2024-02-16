@@ -16,7 +16,7 @@ func NewOptions() fx.Option {
 	return fx.Options(
 		fx.Provide(
 			logger.NewProduction,
-			config.New,
+			config.NewController,
 			grpc.New,
 			production.New,
 		),

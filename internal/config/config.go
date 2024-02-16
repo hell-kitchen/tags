@@ -15,8 +15,8 @@ type Controller struct {
 	KeyFile  string `config:"key-file"`
 }
 
-// New initializes new server config.
-func New() (*Controller, error) {
+// NewController initializes new server config.
+func NewController() (*Controller, error) {
 	cfg := &Controller{
 		BindPort: 8080,
 		BindHost: "0.0.0.0",
