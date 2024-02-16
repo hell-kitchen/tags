@@ -18,7 +18,7 @@ func ToTagsCreateResponse(dto *dto.TagDTO) *pb.TagsCreateResponse {
 		return nil
 	}
 	return &pb.TagsCreateResponse{
-		Id:    dto.ID,
+		Id:    dto.ID.String(),
 		Name:  dto.Name,
 		Color: dto.Color,
 		Slug:  dto.Slug,
@@ -31,7 +31,7 @@ func ToTagsGetResponse(dto *dto.TagDTO) *pb.TagsGetResponse {
 	}
 	return &pb.TagsGetResponse{
 		Tag: &pb.Tag{
-			Id:    dto.ID,
+			Id:    dto.ID.String(),
 			Name:  dto.Name,
 			Color: dto.Color,
 			Slug:  dto.Slug,
@@ -43,7 +43,7 @@ func ToTagsGetAllResponse(tags []dto.TagDTO) *pb.TagsGetAllResponse {
 	var result = make([]*pb.Tag, 0, len(tags))
 	for _, tag := range tags {
 		result = append(result, &pb.Tag{
-			Id:    tag.ID,
+			Id:    tag.ID.String(),
 			Name:  tag.Name,
 			Color: tag.Color,
 			Slug:  tag.Slug,

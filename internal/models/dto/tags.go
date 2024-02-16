@@ -1,5 +1,7 @@
 package dto
 
+import "github.com/google/uuid"
+
 type (
 	TagCreationDTO struct {
 		Name  string
@@ -7,7 +9,7 @@ type (
 		Slug  string
 	}
 	TagDTO struct {
-		ID    string
+		ID    uuid.UUID
 		Name  string
 		Color string
 		Slug  string
