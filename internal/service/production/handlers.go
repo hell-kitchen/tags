@@ -36,6 +36,5 @@ func (s *Service) Get(ctx context.Context, id string) (*dto.TagDTO, error) {
 }
 
 func (s *Service) GetAll(ctx context.Context) ([]dto.TagDTO, error) {
-	//TODO implement me
-	panic("implement me")
+	return s.repository.GetAll(ctx)
 }
