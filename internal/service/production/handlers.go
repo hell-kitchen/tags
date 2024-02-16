@@ -22,8 +22,17 @@ func (s *Service) Create(ctx context.Context, creationData dto.TagCreationDTO) (
 }
 
 func (s *Service) Get(ctx context.Context, id string) (*dto.TagDTO, error) {
-	//TODO implement me
-	panic("implement me")
+	parsedUUID, err := uuid.Parse(id)
+	if err != nil {
+		return nil, err
+	}
+
+	result, err := s.repository.Get(ctx, parsedUUID)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
 }
 
 func (s *Service) GetAll(ctx context.Context) ([]dto.TagDTO, error) {
