@@ -1,4 +1,4 @@
-package convertors
+package convertor
 
 import (
 	"github.com/hell-kitchen/tags/internal/models/dto"

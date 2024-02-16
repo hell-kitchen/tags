@@ -2,16 +2,16 @@ package grpc
 
 import (
 	"context"
-	"github.com/hell-kitchen/tags/internal/models/dto/convertors"
+	"github.com/hell-kitchen/tags/internal/models/dto/convertor"
 	pb "github.com/hell-kitchen/tags/pkg/api/proto"
 )
 
 func (ctrl *Controller) Create(ctx context.Context, req *pb.TagsCreateRequest) (*pb.TagsCreateResponse, error) {
-	resp, err := ctrl.service.Create(ctx, convertors.FromTagCreateRequest(req))
+	resp, err := ctrl.service.Create(ctx, convertor.FromTagCreateRequest(req))
 	if err != nil {
 		return nil, err
 	}
-	return convertors.ToTagsCreateResponse(resp), nil
+	return convertor.ToTagsCreateResponse(resp), nil
 }
 
 func (ctrl *Controller) Get(ctx context.Context, req *pb.TagsGetRequest) (*pb.TagsGetResponse, error) {
@@ -19,7 +19,7 @@ func (ctrl *Controller) Get(ctx context.Context, req *pb.TagsGetRequest) (*pb.Ta
 	if err != nil {
 		return nil, err
 	}
-	return convertors.ToTagsGetResponse(resp), nil
+	return convertor.ToTagsGetResponse(resp), nil
 }
 
 func (ctrl *Controller) GetAll(ctx context.Context, _ *pb.TagsGetAllRequest) (*pb.TagsGetAllResponse, error) {
@@ -27,5 +27,5 @@ func (ctrl *Controller) GetAll(ctx context.Context, _ *pb.TagsGetAllRequest) (*p
 	if err != nil {
 		return nil, err
 	}
-	return convertors.ToTagsGetAllResponse(resp), nil
+	return convertor.ToTagsGetAllResponse(resp), nil
 }
