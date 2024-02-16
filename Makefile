@@ -7,7 +7,7 @@ gen:
 .PHONY: dock
 dock:
 	docker build . --file=infra/tags.dockerfile --tag="vladmarlo/tags_backend:latest"
-	 docker build . --file=infra/migrator.dockerfile --tag="vladmarlo/tags_migrator:latest"
+	docker build . --file=infra/migrator.dockerfile --tag="vladmarlo/tags_migrator:latest"
 
 .PHONY: dock/push
 dock/push: dock
