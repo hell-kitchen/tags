@@ -32,7 +32,7 @@ services:
     restart: always
     user: postgres
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - tags-db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=tags
       - POSTGRES_PASSWORD=postgres
@@ -42,5 +42,5 @@ services:
       timeout: 1s
       retries: 15
 volumes:
-  db-data:
+  tags-db-data:
 
