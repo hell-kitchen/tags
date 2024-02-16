@@ -2,6 +2,7 @@ package config
 
 import (
 	"context"
+	"fmt"
 	"github.com/hell-kitchen/pkg/confita"
 )
 
@@ -25,4 +26,11 @@ func NewPostgres() (*Postgres, error) {
 		return nil, err
 	}
 	return cfg, nil
+}
+
+func (cfg Postgres) ConnString() string {
+	return fmt.Sprintf(
+		"postgresql://%s:%s@%s:%d/%s?sslmode=disable",
+		cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.Database,
+	)
 }
