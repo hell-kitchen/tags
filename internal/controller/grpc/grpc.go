@@ -17,12 +17,12 @@ import (
 type Controller struct {
 	pb.UnimplementedTagsServiceServer
 	server   *grpc.Server
-	cfg      *config.Config
+	cfg      *config.Controller
 	listener net.Listener
 	service  service.TagsService
 }
 
-func New(cfg *config.Config, service service.TagsService) (ctrl *Controller, err error) {
+func New(cfg *config.Controller, service service.TagsService) (ctrl *Controller, err error) {
 	ctrl = &Controller{
 		cfg:     cfg,
 		service: service,

@@ -6,7 +6,7 @@ import (
 	"github.com/hell-kitchen/pkg/confita"
 )
 
-type Config struct {
+type Controller struct {
 	BindPort int    `config:"bind-port,short=p"`
 	BindHost string `config:"bind-host,short=h"`
 	BaseAddr string `config:"base-addr,short=a"`
@@ -16,8 +16,8 @@ type Config struct {
 }
 
 // New initializes new server config.
-func New() (*Config, error) {
-	cfg := &Config{
+func New() (*Controller, error) {
+	cfg := &Controller{
 		BindPort: 8080,
 		BindHost: "0.0.0.0",
 		BaseAddr: "http://localhost:8080",
@@ -31,6 +31,6 @@ func New() (*Config, error) {
 	return cfg, nil
 }
 
-func (cfg Config) Bind() string {
+func (cfg Controller) Bind() string {
 	return fmt.Sprintf("%s:%d", cfg.BindHost, cfg.BindPort)
 }
