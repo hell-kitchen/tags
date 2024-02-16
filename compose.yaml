@@ -33,6 +33,10 @@ services:
     user: postgres
     volumes:
       - db-data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_DB=tags
       - POSTGRES_PASSWORD=postgres

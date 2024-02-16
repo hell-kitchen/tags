@@ -13,9 +13,10 @@ type Service struct {
 	repository repository.Interface
 }
 
-func New(logger *zap.Logger) (*Service, error) {
+func New(logger *zap.Logger, repo repository.Interface) (*Service, error) {
 	srv := &Service{
-		logger: logger,
+		logger:     logger,
+		repository: repo,
 	}
 	return srv, nil
 }

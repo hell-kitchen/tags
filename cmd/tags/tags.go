@@ -5,6 +5,8 @@ import (
 	"github.com/hell-kitchen/pkg/postgres"
 	"github.com/hell-kitchen/tags/internal/config"
 	"github.com/hell-kitchen/tags/internal/controller/grpc"
+	"github.com/hell-kitchen/tags/internal/repository"
+	"github.com/hell-kitchen/tags/internal/repository/pgx"
 	"github.com/hell-kitchen/tags/internal/service"
 	"github.com/hell-kitchen/tags/internal/service/production"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -25,6 +27,7 @@ func NewOptions() fx.Option {
 			grpc.New,
 			fx.Annotate(production.New, fx.As(new(service.TagsService))),
 			NewPool,
+			fx.Annotate(pgx.New, fx.As(new(repository.Interface))),
 		),
 		fx.Invoke(
 			startServer,
