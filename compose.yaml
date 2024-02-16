@@ -1,42 +1,38 @@
 services:
-  server:
+  tags:
     image: vladmarlo/tags_backend:latest
     ports:
       - 5000:5000
     environment:
-      - POSTGRES_HOST=db
+      - POSTGRES_HOST=tags_db
       - POSTGRES_PORT=5432
       - POSTGRES_USER=postgres
       - POSTGRES_DATABASE=tags
       - POSTGRES_PASSWORD=postgres
       - BIND_PORT=5000
     depends_on:
-      db:
+      tags_db:
         condition: service_healthy
-      migrate:
+      tags_migrate:
         condition: service_completed_successfully
-  migrate:
+  tags_migrate:
     image: vladmarlo/tags_migrator:latest
     restart: no
     environment:
-      - POSTGRES_HOST=db
+      - POSTGRES_HOST=tags_db
       - POSTGRES_PORT=5432
       - POSTGRES_USER=postgres
       - POSTGRES_DATABASE=tags
       - POSTGRES_PASSWORD=postgres
     depends_on:
-      db:
+      tags_db:
         condition: service_healthy
-  db:
+  tags_db:
     image: postgres
     restart: always
     user: postgres
     volumes:
       - db-data:/var/lib/postgresql/data
-    expose:
-      - 5432
-    ports:
-      - "5432:5432"
     environment:
       - POSTGRES_DB=tags
       - POSTGRES_PASSWORD=postgres
