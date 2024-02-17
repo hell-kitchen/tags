@@ -40,13 +40,36 @@ func (s *Service) GetAll(ctx context.Context) ([]dto.TagDTO, error) {
 }
 
 func (s *Service) CreateMany(ctx context.Context, create []dto.TagCreationDTO) ([]dto.TagDTO, error) {
-	//TODO implement me
-	panic("implement me")
+	var result = make([]dto.TagDTO, 0, len(create))
+	for _, tag := range create {
+		temp := dto.TagDTO{
+			ID:    uuid.New(),
+			Name:  tag.Name,
+			Color: tag.Color,
+			Slug:  tag.Slug,
+		}
+		result = append(result, temp)
+	}
+
+	err := s.repository.CreateMany(ctx, result)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
 }
 
-func (s *Service) Delete(ctx context.Context, id string) error {
-	//TODO implement me
-	panic("implement me")
+func (s *Service) Delete(ctx context.Context, rawID string) error {
+	id, err := uuid.Parse(rawID)
+	if err != nil {
+		return err
+	}
+
+	err = s.repository.Delete(ctx, id)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *Service) Update(ctx context.Context, dto dto.TagUpdateDTO) (*dto.TagDTO, error) {
