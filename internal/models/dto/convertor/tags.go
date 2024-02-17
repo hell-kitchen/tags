@@ -5,12 +5,26 @@ import (
 	pb "github.com/hell-kitchen/tags/pkg/api/proto"
 )
 
-func FromTagCreateRequest(pb *pb.CreateRequest) dto.TagCreationDTO {
+type CreationRequest interface {
+	GetName() string
+	GetColor() string
+	GetSlug() string
+}
+
+func FromTagCreateRequest(pb CreationRequest) dto.TagCreationDTO {
 	return dto.TagCreationDTO{
 		Name:  pb.GetName(),
 		Color: pb.GetColor(),
 		Slug:  pb.GetSlug(),
 	}
+}
+
+func FromTagCreateManyRequest(pb *pb.CreateManyRequest) []dto.TagCreationDTO {
+	result := make([]dto.TagCreationDTO, 0, len(pb.GetTags()))
+	for _, i := range pb.GetTags() {
+		result = append(result, FromTagCreateRequest(i))
+	}
+	return result
 }
 
 func ToTagsCreateResponse(dto *dto.TagDTO) *pb.CreateResponse {
