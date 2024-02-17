@@ -61,3 +61,18 @@ func (r *Repository) Create(ctx context.Context, tag *dto.TagDTO) error {
 	}
 	return nil
 }
+
+func (r *Repository) CreateMany(ctx context.Context, create []dto.TagDTO) error {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (r *Repository) Delete(ctx context.Context, id uuid.UUID) error {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (r *Repository) Update(ctx context.Context, tag *dto.TagDTO) error {
+	//TODO implement me
+	panic("implement me")
+}
