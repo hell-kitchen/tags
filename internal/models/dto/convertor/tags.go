@@ -5,7 +5,7 @@ import (
 	pb "github.com/hell-kitchen/tags/pkg/api/proto"
 )
 
-func FromTagCreateRequest(pb *pb.TagsCreateRequest) dto.TagCreationDTO {
+func FromTagCreateRequest(pb *pb.CreateRequest) dto.TagCreationDTO {
 	return dto.TagCreationDTO{
 		Name:  pb.GetName(),
 		Color: pb.GetColor(),
@@ -13,11 +13,11 @@ func FromTagCreateRequest(pb *pb.TagsCreateRequest) dto.TagCreationDTO {
 	}
 }
 
-func ToTagsCreateResponse(dto *dto.TagDTO) *pb.TagsCreateResponse {
+func ToTagsCreateResponse(dto *dto.TagDTO) *pb.CreateResponse {
 	if dto == nil {
 		return nil
 	}
-	return &pb.TagsCreateResponse{
+	return &pb.CreateResponse{
 		Id:    dto.ID.String(),
 		Name:  dto.Name,
 		Color: dto.Color,
@@ -25,11 +25,11 @@ func ToTagsCreateResponse(dto *dto.TagDTO) *pb.TagsCreateResponse {
 	}
 }
 
-func ToTagsGetResponse(dto *dto.TagDTO) *pb.TagsGetResponse {
+func ToTagsGetResponse(dto *dto.TagDTO) *pb.GetResponse {
 	if dto == nil {
 		return nil
 	}
-	return &pb.TagsGetResponse{
+	return &pb.GetResponse{
 		Tag: &pb.Tag{
 			Id:    dto.ID.String(),
 			Name:  dto.Name,
@@ -39,7 +39,7 @@ func ToTagsGetResponse(dto *dto.TagDTO) *pb.TagsGetResponse {
 	}
 }
 
-func ToTagsGetAllResponse(tags []dto.TagDTO) *pb.TagsGetAllResponse {
+func ToTagsGetAllResponse(tags []dto.TagDTO) *pb.GetAllResponse {
 	var result = make([]*pb.Tag, 0, len(tags))
 	for _, tag := range tags {
 		result = append(result, &pb.Tag{
@@ -49,5 +49,5 @@ func ToTagsGetAllResponse(tags []dto.TagDTO) *pb.TagsGetAllResponse {
 			Slug:  tag.Slug,
 		})
 	}
-	return &pb.TagsGetAllResponse{Tag: result}
+	return &pb.GetAllResponse{Tag: result}
 }
