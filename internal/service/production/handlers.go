@@ -38,3 +38,18 @@ func (s *Service) Get(ctx context.Context, id string) (*dto.TagDTO, error) {
 func (s *Service) GetAll(ctx context.Context) ([]dto.TagDTO, error) {
 	return s.repository.GetAll(ctx)
 }
+
+func (s *Service) CreateMany(ctx context.Context, create []dto.TagCreationDTO) ([]dto.TagDTO, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s *Service) Delete(ctx context.Context, id string) error {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s *Service) Update(ctx context.Context, dto dto.TagUpdateDTO) (*dto.TagDTO, error) {
+	//TODO implement me
+	panic("implement me")
+}
