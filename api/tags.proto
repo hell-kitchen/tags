@@ -50,8 +50,6 @@ message CreateResponse {
   string slug = 4;
 }
 
-
-
 message CreateManyRequest {
   repeated TagCreation tags = 1;
 }
