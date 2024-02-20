@@ -19,6 +19,11 @@ VALUES ($1, $2, $3, $4);`
 VALUES ($1, $2, $3, $4)
 ON CONFLICT DO NOTHING;`
 	deleteQuery = `DELETE FROM tags WHERE id = $1;`
+	updateQuery = `UPDATE tags
+SET name  = $2,
+    color = $3,
+    slug  = $4
+WHERE id = $1;`
 )
 
 func (r *Repository) Get(ctx context.Context, id uuid.UUID) (*dto.TagDTO, error) {
@@ -85,6 +90,9 @@ func (r *Repository) Delete(ctx context.Context, id uuid.UUID) error {
 }
 
 func (r *Repository) Update(ctx context.Context, tag *dto.TagDTO) error {
-	//TODO implement me
-	panic("implement me")
+	_, err := r.pool.Exec(ctx, updateQuery, tag.ID, tag.Name, tag.Color, tag.Slug)
+	if err != nil {
+		return err
+	}
+	return nil
 }
