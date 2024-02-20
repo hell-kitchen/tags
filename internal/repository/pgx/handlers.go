@@ -15,6 +15,15 @@ WHERE t.id = $1;`
 FROM tags t;`
 	createQuery = `INSERT INTO tags (id, name, slug, color)
 VALUES ($1, $2, $3, $4);`
+	createManyQuery = `INSERT INTO tags(id, name, slug, color)
+VALUES ($1, $2, $3, $4)
+ON CONFLICT DO NOTHING;`
+	deleteQuery = `DELETE FROM tags WHERE id = $1;`
+	updateQuery = `UPDATE tags
+SET name  = $2,
+    color = $3,
+    slug  = $4
+WHERE id = $1;`
 )
 
 func (r *Repository) Get(ctx context.Context, id uuid.UUID) (*dto.TagDTO, error) {
@@ -56,6 +65,32 @@ func (r *Repository) GetAll(ctx context.Context) (res []dto.TagDTO, err error) {
 
 func (r *Repository) Create(ctx context.Context, tag *dto.TagDTO) error {
 	_, err := r.pool.Exec(ctx, createQuery, tag.ID, tag.Name, tag.Slug, tag.Color)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *Repository) CreateMany(ctx context.Context, tags []dto.TagDTO) error {
+	for _, tag := range tags {
+		_, err := r.pool.Exec(ctx, createManyQuery, tag.ID, tag.Name, tag.Slug, tag.Color)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (r *Repository) Delete(ctx context.Context, id uuid.UUID) error {
+	_, err := r.pool.Exec(ctx, deleteQuery, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *Repository) Update(ctx context.Context, tag *dto.TagDTO) error {
+	_, err := r.pool.Exec(ctx, updateQuery, tag.ID, tag.Name, tag.Color, tag.Slug)
 	if err != nil {
 		return err
 	}
