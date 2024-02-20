@@ -27,29 +27,27 @@ func FromTagCreateManyRequest(pb *pb.CreateManyRequest) []dto.TagCreationDTO {
 	return result
 }
 
-func ToTagsCreateResponse(dto *dto.TagDTO) *pb.CreateResponse {
-	if dto == nil {
-		return nil
+func ToTagsCreateManyResponse(created []dto.TagDTO) *pb.CreateManyResponse {
+	resp := &pb.CreateManyResponse{
+		Tags: make([]*pb.Tag, 0, len(created)),
 	}
-	return &pb.CreateResponse{
-		Id:    dto.ID.String(),
-		Name:  dto.Name,
-		Color: dto.Color,
-		Slug:  dto.Slug,
+	for _, tag := range created {
+		resp.Tags = append(resp.Tags, &pb.Tag{
+			Id:    tag.ID.String(),
+			Name:  tag.Name,
+			Color: tag.Color,
+			Slug:  tag.Slug,
+		})
 	}
+	return resp
 }
 
-func ToTagsGetResponse(dto *dto.TagDTO) *pb.GetResponse {
-	if dto == nil {
-		return nil
-	}
-	return &pb.GetResponse{
-		Tag: &pb.Tag{
-			Id:    dto.ID.String(),
-			Name:  dto.Name,
-			Color: dto.Color,
-			Slug:  dto.Slug,
-		},
+func ProtoToUpdateDTO(proto *pb.UpdateRequest) dto.TagUpdateDTO {
+	return dto.TagUpdateDTO{
+		ID:    proto.Id,
+		Name:  proto.Name,
+		Color: proto.Color,
+		Slug:  proto.Slug,
 	}
 }
 
