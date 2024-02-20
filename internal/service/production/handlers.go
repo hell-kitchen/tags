@@ -73,6 +73,24 @@ func (s *Service) Delete(ctx context.Context, rawID string) error {
 }
 
 func (s *Service) Update(ctx context.Context, dto dto.TagUpdateDTO) (*dto.TagDTO, error) {
-	//TODO implement me
-	panic("implement me")
+	tag, err := s.Get(ctx, dto.ID)
+	if err != nil {
+		return nil, err
+	}
+
+	if dto.Name != nil && *dto.Name != tag.Name {
+		tag.Name = *dto.Name
+	}
+	if dto.Slug != nil && *dto.Slug != tag.Slug {
+		tag.Slug = *dto.Slug
+	}
+	if dto.Color != nil && *dto.Color != tag.Color {
+		tag.Color = *dto.Color
+	}
+
+	err = s.repository.Update(ctx, tag)
+	if err != nil {
+		return nil, err
+	}
+	return tag, nil
 }
