@@ -4,6 +4,17 @@ gen:
           --go-grpc_out=. --go-grpc_opt=paths=import \
           ./api/tags.proto
 
+.PHONY: test
+test:
+	go test --v ./... --coverpkg=./internal/... --coverprofile=coverage.out
+
+.PHONY: c
+c:
+	go tool cover --func coverage.out
+
+.PHONY: tc
+tc: test c
+
 .PHONY: dock
 dock:
 	docker build . --file=infra/tags.dockerfile --tag="vladmarlo/tags_backend:latest"
