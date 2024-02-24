@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/google/uuid"
 	"github.com/hell-kitchen/pkg/logger"
 	"github.com/hell-kitchen/pkg/postgres"
 	"github.com/hell-kitchen/tags/internal/config"
@@ -21,7 +22,7 @@ func main() {
 func NewOptions() fx.Option {
 	return fx.Options(
 		fx.Provide(
-			logger.NewProduction,
+			getLogger,
 			config.NewController,
 			config.NewPostgres,
 			grpc.New,
@@ -32,7 +33,18 @@ func NewOptions() fx.Option {
 		fx.Invoke(
 			startServer,
 		),
+		fx.NopLogger,
 	)
+}
+
+func getLogger() (*zap.Logger, error) {
+	log, err := logger.NewProduction(
+		zap.Fields(
+			logger.WithInstanceID(uuid.NewString()),
+			logger.WithService("tags"),
+		),
+	)
+	return log, err
 }
 
 func startServer(lc fx.Lifecycle, ctrl *grpc.Controller) {
