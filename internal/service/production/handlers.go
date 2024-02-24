@@ -4,9 +4,10 @@ import (
 	"context"
 	"github.com/google/uuid"
 	"github.com/hell-kitchen/tags/internal/models/dto"
+	"go.uber.org/zap"
 )
 
-func (s *Service) Create(ctx context.Context, creationData dto.TagCreationDTO) (*dto.TagDTO, error) {
+func (s *Service) Create(ctx context.Context, creationData dto.TagCreationDTO, opts ...zap.Field) (*dto.TagDTO, error) {
 	tag := &dto.TagDTO{
 		ID:    uuid.New(),
 		Name:  creationData.Name,
@@ -21,7 +22,7 @@ func (s *Service) Create(ctx context.Context, creationData dto.TagCreationDTO) (
 	return tag, nil
 }
 
-func (s *Service) Get(ctx context.Context, id string) (*dto.TagDTO, error) {
+func (s *Service) Get(ctx context.Context, id string, opts ...zap.Field) (*dto.TagDTO, error) {
 	parsedUUID, err := uuid.Parse(id)
 	if err != nil {
 		return nil, err
@@ -35,11 +36,11 @@ func (s *Service) Get(ctx context.Context, id string) (*dto.TagDTO, error) {
 	return result, nil
 }
 
-func (s *Service) GetAll(ctx context.Context) ([]dto.TagDTO, error) {
+func (s *Service) GetAll(ctx context.Context, opts ...zap.Field) ([]dto.TagDTO, error) {
 	return s.repository.GetAll(ctx)
 }
 
-func (s *Service) CreateMany(ctx context.Context, create []dto.TagCreationDTO) ([]dto.TagDTO, error) {
+func (s *Service) CreateMany(ctx context.Context, create []dto.TagCreationDTO, opts ...zap.Field) ([]dto.TagDTO, error) {
 	var result = make([]dto.TagDTO, 0, len(create))
 	for _, tag := range create {
 		temp := dto.TagDTO{
@@ -59,7 +60,7 @@ func (s *Service) CreateMany(ctx context.Context, create []dto.TagCreationDTO) (
 	return result, nil
 }
 
-func (s *Service) Delete(ctx context.Context, rawID string) error {
+func (s *Service) Delete(ctx context.Context, rawID string, opts ...zap.Field) error {
 	id, err := uuid.Parse(rawID)
 	if err != nil {
 		return err
@@ -72,9 +73,13 @@ func (s *Service) Delete(ctx context.Context, rawID string) error {
 	return nil
 }
 
-func (s *Service) Update(ctx context.Context, dto dto.TagUpdateDTO) (*dto.TagDTO, error) {
+func (s *Service) Update(ctx context.Context, dto dto.TagUpdateDTO, opts ...zap.Field) (*dto.TagDTO, error) {
+	log := s.logger.With(opts...)
+
+	log.Debug("getting tag by id", zap.String("tag-id", dto.ID))
 	tag, err := s.Get(ctx, dto.ID)
 	if err != nil {
+		log.Error("got non nil error while getting tag", zap.Error(err))
 		return nil, err
 	}
 
@@ -88,6 +93,7 @@ func (s *Service) Update(ctx context.Context, dto dto.TagUpdateDTO) (*dto.TagDTO
 		tag.Color = *dto.Color
 	}
 
+	log.Debug("")
 	err = s.repository.Update(ctx, tag)
 	if err != nil {
 		return nil, err
