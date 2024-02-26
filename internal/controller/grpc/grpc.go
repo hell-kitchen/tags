@@ -14,6 +14,8 @@ import (
 	"time"
 )
 
+var listenerFunc func(network string, address string) (net.Listener, error) = net.Listen
+
 type Controller struct {
 	pb.UnimplementedTagsServiceServer
 	server   *grpc.Server
@@ -33,7 +35,7 @@ func New(cfg *config.Controller, service service.TagsService) (ctrl *Controller,
 }
 
 func (ctrl *Controller) createListener() (err error) {
-	ctrl.listener, err = net.Listen("tcp", ctrl.cfg.Bind())
+	ctrl.listener, err = listenerFunc("tcp", ctrl.cfg.Bind())
 	if err != nil {
 		return err
 	}
