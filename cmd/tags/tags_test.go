@@ -1,10 +1,12 @@
-package main_test
+package main
 
-import "testing"
+import (
+	"github.com/stretchr/testify/require"
+	"go.uber.org/fx"
+	"testing"
+)
 
-func TestEmpty(t *testing.T) {
-	// added for accurate coverage estimation
-	//
-	// please remove it once any unit-test is added
-	// for this package
+func TestNewOptions(t *testing.T) {
+	err := fx.ValidateApp(NewOptions())
+	require.NoError(t, err)
 }
