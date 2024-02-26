@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-var ErrUnknown = errors.New("")
+var errUnknown = errors.New("")
 
 type loaderMock struct {
 	f func(context.Context, any) error
@@ -55,14 +55,14 @@ func TestNewController_NonNilError(t *testing.T) {
 
 	f := func(ctx context.Context, to interface{}) error {
 		calledTimes++
-		return ErrUnknown
+		return errUnknown
 	}
 
 	defer prepareLoader(t, f)()
 
 	ctrl, err := NewController()
 	if assert.Error(t, err) {
-		assert.ErrorIs(t, err, ErrUnknown)
+		assert.ErrorIs(t, err, errUnknown)
 	}
 	if assert.NotEmpty(t, calledTimes) {
 		assert.Equal(t, 1, calledTimes)
