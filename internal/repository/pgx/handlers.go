@@ -5,6 +5,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/hell-kitchen/tags/internal/models/dto"
 	"github.com/jackc/pgx/v5"
+	"go.uber.org/zap"
 )
 
 const (
@@ -27,13 +28,17 @@ WHERE id = $1;`
 )
 
 func (r *Repository) Get(ctx context.Context, id uuid.UUID) (*dto.TagDTO, error) {
+	r.logger.Debug("got Get call", zap.String("id", id.String()))
+
 	res := &dto.TagDTO{
 		ID: id,
 	}
 	err := r.pool.QueryRow(ctx, getQuery, id).Scan(&res.Name, &res.Color, &res.Slug)
 	if err != nil {
+		r.logger.Error("error just occurred", zap.Error(err))
 		return nil, err
 	}
+	r.logger.Debug("succeed Get call")
 	return res, nil
 }
 
